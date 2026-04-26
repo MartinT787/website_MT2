@@ -76,7 +76,9 @@ These are not in the repo. They are cited by name in patient-facing "About this 
 | `ext:dga-2020` | U.S. Dietary Guidelines for Americans, 2020–2025. |
 | `ext:eas-htg-2014` | Hegele RA et al. *The polygenic nature of hypertriglyceridemia: implications for definition, diagnosis, and management.* Lancet Diabetes Endocrinol. 2014. |
 | `ext:fcs-foundation` | FCS Foundation patient education materials and clinical consensus on FCS dietary management. |
-| `ext:usda-fdc` | USDA FoodData Central, https://fdc.nal.usda.gov/ . Source of all per-food nutrient values used by the calculators. Cite as "USDA FoodData Central, accessed YYYY-MM-DD" with the FDC ID. |
+| `ext:williams-2018` | Williams L, Rhodes KS, Karmally W, Welstead LA, Alexander L, Sutton L. *Familial chylomicronemia syndrome: Bringing to life dietary recommendations throughout the life span.* J Clin Lipidol. 2018;12(4):908–919. doi:10.1016/j.jacl.2018.04.010. **Primary FCS dietary citation.** Top-line guideline: limit fat to <15–20 g/day (<10–15% of total daily energy intake). |
+| `ext:goldberg-chait-2020` | Goldberg RB, Chait A. *A Comprehensive Update on the Chylomicronemia Syndrome.* Front Endocrinol. 2020;11:593931. doi:10.3389/fendo.2020.593931. **Primary chylomicronemia review.** Source of FCS vs. MFCS distinction, the full aggravating-factors list, and the prevention-by-recognition argument used on the HTG profile. |
+| `ext:usda-fdc` | USDA FoodData Central, https://fdc.nal.usda.gov/ . Source of all per-food nutrient values used by the FCS food-fat lookup. Cite as "USDA FoodData Central, accessed YYYY-MM-DD" with the FDC ID. |
 
 ---
 

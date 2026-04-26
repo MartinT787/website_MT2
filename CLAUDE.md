@@ -12,10 +12,16 @@ Most lipid-disorder patients are handed a one-page diet sheet at diagnosis and n
 
 1. A profile that matches their condition (and routes them to the right one).
 2. A food search that tells them whether a specific item fits their profile, with the **why**.
-3. A meal-day tracker that surfaces the relevant numbers (fat, sat fat, cholesterol, fiber, added sugar, sodium — and for FCS, **long-chain fat**).
+3. **For FCS only:** a focused food-fat lookup that helps a patient see how a food fits the daily fat budget. (No calculator on the other profiles in v1.)
 4. Education cards in patient language, sourced and cited.
 
 It is **patient education**, not medical advice. The disclaimer below is canonical.
+
+### v1 design principle
+
+This site is a **first step**. It is for patients and the general public, not for clinicians. The patient-facing UI uses **plain food language**, not numeric thresholds — a parent should not have to know what "2300 mg of sodium" looks like to use this site. Numeric clinical targets live in the spec docs (`docs/clinical/*.md`) and are used by the code; they are **not surfaced to patients** except in the FCS food-fat lookup, where a number is genuinely necessary for adherence.
+
+A future v2 may add clinician-facing tools, more calculators, and detailed tracking. Resist the urge to build them now.
 
 ---
 
@@ -135,41 +141,52 @@ Open decisions (defer until they bite):
 
 ---
 
+## Calculators in v1
+
+Locked scope. Do not expand without an explicit decision.
+
+| Profile | Calculator in v1? | Notes |
+|---|---|---|
+| Heart-Healthy Eating | **No** | Food-language guidance only. |
+| Cholesterol-Lowering Helper (FH) | **No** | LDL responds on a slow, noisy timescale; daily numeric feedback would mislead. Categorical food guidance only. |
+| Triglyceride Calmer (HTG / MFCS) | **No** | The levers that work are categorical (no alcohol, no sugary drinks, less refined carb, treat aggravating factors). No tracker. |
+| FCS | **Yes — exactly one** | A **food-fat lookup**: search a food, see total fat per portion, optionally tally a running total against a daily ceiling (15–20 g). This is the only numeric tool on the site in v1. |
+
+### The FCS food-fat lookup
+
+- **Total fat in grams**, not LCT, not chain-length math. This matches Williams 2018's published guideline language (`ext:williams-2018`) and avoids C8/C10/C12 chemistry that adds complexity without clinical value at the v1 patient level.
+- **Per-food portion picker** — common household units (e.g., "1 fillet ≈ 4 oz") plus a grams field for precision.
+- **Optional running total for the day**, stored in `localStorage` only. Resets at the user's local midnight.
+- **No long-term history, no graphs, no streaks.** A single day's tally is enough for adherence; anything more becomes an app and creates engineering, privacy, and clinical-confidence problems.
+- **Always paired with a disclaimer** on the same view: "This is an estimate. Confirm your fat budget with your dietitian."
+- **Source for every food**: "USDA FoodData Central · FDC ID xxxxxxx · accessed YYYY-MM-DD".
+
 ## USDA FoodData Central integration
 
-The food-search experience depends on USDA FDC.
+USDA FDC powers two things: (1) the per-profile traffic-light classification of any food a user looks up, and (2) the FCS food-fat lookup.
 
 ### Approach
 
 1. **API key** lives in `.env.local` as `VITE_FDC_API_KEY`. Never commit. `.env.example` documents the variable.
 2. **Search** uses the FDC `/v1/foods/search` endpoint with `dataType=Foundation,SR%20Legacy,Survey%20(FNDDS)` — skip Branded by default to keep results clean and reproducible. Branded is opt-in via a "Brand-name results" toggle.
-3. **Cache** every fetched food into `localStorage` keyed by FDC ID. Cache also feeds the day-tracker so the same item doesn't refetch.
-4. **Per-food classification** — when a food loads, we run it through `lib/clinical/<profile>.ts` rules to assign a traffic-light bucket. The classification is stored alongside the food in cache. If the rules change in code, cached classifications are invalidated by version-bumping a `CLINICAL_RULES_VERSION` constant.
-5. **The numbers we always extract** from the FDC payload:
+3. **Cache** every fetched food into `localStorage` keyed by FDC ID.
+4. **Per-food classification** — when a food loads, we run it through `lib/clinical/<profile>.ts` rules to assign a traffic-light bucket (eat / be mindful / limit). The classification is stored alongside the food in cache. If the rules change in code, cached classifications are invalidated by version-bumping a `CLINICAL_RULES_VERSION` constant.
+5. **The numbers we extract** from the FDC payload (kept minimal — we don't extract what we don't use):
    - Energy (kcal)
-   - Total fat (g)
-   - Saturated fat (g)
-   - Trans fat (g)
-   - Cholesterol (mg)
+   - **Total fat (g)** — the field the FCS lookup hangs on
+   - Saturated fat (g) — drives FH classification rules
+   - Trans fat (g) — drives FH/general classification rules
+   - Cholesterol (mg) — drives FH classification rules
    - Carbohydrates (g)
    - Fiber (g)
    - Total sugars (g)
    - **Added sugars (g)** when present (often missing in Foundation; fall back to Survey/FNDDS)
    - Sodium (mg)
    - Protein (g)
-   - **Fatty acids by chain length:** 8:0, 10:0, 12:0, 14:0, 16:0, 18:0, 18:1, 18:2, 18:3, 20:5 (EPA), 22:6 (DHA) — needed for the FCS LCT calc and the omega-3 nudge.
-6. **Per-100g normalization** — FDC payloads are per-100g. The day-tracker takes a portion size in grams or household units and scales.
+
+   We do **not** extract fatty acids by chain length. v1 has no LCT calculator; if v2 adds one, that decision belongs in a separate ADR.
+6. **Per-100g normalization** — FDC payloads are per-100g. The lookup takes a portion size in grams or household units and scales.
 7. **Citation** — every food card shows "Source: USDA FoodData Central · FDC ID xxxxxxx · accessed YYYY-MM-DD".
-
-### FCS LCT math (lives in `lib/clinical/fcs.ts`)
-
-```
-LCT(g) = totalFat(g) − fattyAcid_8_0(g) − fattyAcid_10_0(g)
-```
-
-C12 (lauric) is **counted as LCT** for FCS, despite its borderline metabolic profile. Document this choice in code comments.
-
-If the FDC payload is missing the chain-length fields for a given food, the calculator surfaces the food as "C8/C10 unknown — assume 0 g MCT" and warns the user. We do not silently treat MCT as 0 in the totals without flagging.
 
 ---
 
@@ -216,11 +233,11 @@ A shorter version for inline contexts (food card, calculator):
 │   └── nutrition_documents/
 ├── src/                               ← (to be created)
 │   ├── lib/
-│   │   ├── clinical/                  ← per-profile rules and calculators
+│   │   ├── clinical/                  ← per-profile classification rules
 │   │   │   ├── general.ts
 │   │   │   ├── fh.ts
 │   │   │   ├── htg.ts
-│   │   │   └── fcs.ts                 ← LCT math lives here
+│   │   │   └── fcs.ts                 ← FCS food-fat lookup logic + daily-tally state
 │   │   └── fdc/                       ← USDA FoodData Central client + cache
 │   ├── components/
 │   ├── pages/
@@ -235,12 +252,15 @@ A shorter version for inline contexts (food card, calculator):
 
 Saying these out loud so they don't sneak back in:
 
+- **Calculators on the heart-healthy, FH, and HTG profiles.** Only FCS gets one. See the table above.
+- **Multi-day tracking, streaks, charts.** The FCS lookup is a single-day tally and resets at local midnight.
+- **Numeric thresholds in patient-facing copy.** Spec docs hold the numbers; the UI uses food-language. The one exception is the FCS fat budget, where a number is necessary.
+- **Clinician/provider tooling.** A v2 may add it.
 - User accounts, login, sync. v1 is single-device, `localStorage`-only.
 - A native mobile app. The site is mobile-first PWA-friendly.
 - Telehealth booking, EHR integration, or any handling of PHI.
-- A clinician-side tool. v1 is patient-facing only.
 - Multi-language. v1 is English-only.
-- An LLM-powered chat. v1 is hand-authored content + deterministic calculators.
+- An LLM-powered chat. v1 is hand-authored content + deterministic logic.
 - Recommending specific medications, dosing, or products by brand for a treatment effect. We mention plant-sterol-fortified products by category, not brand-as-endorsement.
 
 ---

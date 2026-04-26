@@ -42,6 +42,8 @@ The dietary pattern is **Mediterranean-style with DASH overlap** — vegetables,
 
 ## Daily nutrient targets
 
+> **Patient-facing rule:** these numbers are the **clinical spec**, not the UI copy. The site does not show a parent "limit sodium to 2300 mg/day" — it shows "most sodium hides in packaged food and bread, those are the ones to pull back on." See the **Patient-facing translations** section below for the food-language version of every target. Numbers live here for the future calculator and for clinician reference.
+
 ### Adult (≥ 20 years)
 
 | Nutrient | Target | Source |
@@ -73,7 +75,23 @@ The dietary pattern is **Mediterranean-style with DASH overlap** — vegetables,
 | Fruits + vegetables | ≥ 5 servings/day | `ref:nhlbi-2011` |
 | Sugary drinks | None or rare; water and milk are the default beverages | `ref:nutrition-youth` |
 
-`[verify]` Sodium pediatric cut-offs and added-sugar pediatric cut-offs against current AAP guidance.
+---
+
+## Patient-facing translations
+
+The table above is for the spec; this is what the UI actually says. When a clinical target maps to a food-language equivalent, use the right-hand column. **The numbers from the table above never appear on patient-facing pages in v1.**
+
+| Clinical target | What the site actually says |
+|---|---|
+| Sat fat < 10 % of calories | "Less butter, fatty meat, and full-fat dairy. More olive oil, fish, and nuts." |
+| Trans fat avoid | "Skip anything with 'partially hydrogenated oil' on the label." |
+| Cholesterol < 300 mg/day | "Egg yolks once or twice a week is plenty. Egg whites are unrestricted." |
+| Sodium < 2300 mg/day | "Most sodium hides in packaged food, bread, fast food, and restaurant meals — not the salt shaker." |
+| Added sugar < 10 % cal (women < 25 g, men < 36 g, kids < 25 g) | "Skip sugary drinks. A flavored yogurt, a granola bar, or a single cookie can add a day's worth of sugar fast — that's the place to look first." |
+| Fiber 25–38 g/day | "Most days, eat oats, beans, fruit with the skin, and a vegetable at every meal — that's enough." |
+| Fruits + vegetables ≥ 5 servings/day | "Half your plate, every meal." |
+| Fish ≥ 2 servings/week | "Two fish dinners a week — salmon, sardines, tuna, or trout." |
+| Alcohol ≤ 1/day women, ≤ 2/day men | "If you drink, less is better than more. None is also a healthy choice." |
 
 ---
 
@@ -123,7 +141,7 @@ The website surfaces this as three columns: **Eat freely** (green), **Be mindful
 
 ## Microcopy library
 
-Strings are referenced by `key` from the React components. Keep them short, plain, and warm.
+Strings are referenced by `key` from the React components. Keep them short, plain, and warm. There is **no day-tracker on this profile in v1**, so these are static education / tooltip strings — not numerically triggered alerts.
 
 ```yaml
 profile_intro:
@@ -148,33 +166,33 @@ limit_card:
   text: Limit these
   body: Sugary drinks, processed meat, fried food, butter, and full-fat dairy.
 
-over_sodium_alert:
-  key: general.alert.sodium
-  trigger: daily sodium > 2300 mg
+sugar_education:
+  key: general.edu.sugar
   text: >
-    You're over the daily sodium target. Most sodium hides in packaged food,
-    bread, and restaurant meals — not the salt shaker.
+    The biggest single source of added sugar for most people is sweetened
+    drinks — soda, sweet tea, juice, sports drinks, sweetened coffee. A
+    flavored yogurt, granola bar, or single cookie can add a day's worth of
+    sugar fast.
 
-over_added_sugar_alert:
-  key: general.alert.sugar
-  trigger: daily added sugar > 36 g (adult) / > 25 g (pediatric)
+sodium_education:
+  key: general.edu.sodium
   text: >
-    You're over the added-sugar target for today. The biggest single source
-    for most people is sweetened drinks.
+    Most sodium hides in packaged food, bread, fast food, and restaurant
+    meals — not the salt shaker. Cooking at home is the easiest way to pull
+    it back without thinking about numbers.
 
-low_fiber_alert:
-  key: general.alert.fiber
-  trigger: daily fiber < 14 g per 1000 kcal
+fiber_education:
+  key: general.edu.fiber
   text: >
-    Fiber is on the low side today. A bowl of beans, oatmeal, or a piece of
-    whole fruit is the easiest fix.
+    A bowl of oats, a serving of beans, an apple with the skin — that's most
+    of a day's fiber right there. Fiber is one of the few things the typical
+    American diet is short on.
 
-omega3_nudge:
-  key: general.nudge.fish
-  trigger: < 2 fish servings logged in past 7 days
+fish_nudge:
+  key: general.edu.fish
   text: >
-    Try to fit in two fish meals this week — salmon, sardines, or tuna are
-    great sources of omega-3 fats.
+    Two fish meals a week — salmon, sardines, tuna, or trout — give you
+    omega-3 fats that the rest of your diet can't easily replace.
 ```
 
 ---

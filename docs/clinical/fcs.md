@@ -12,13 +12,13 @@ People with **diagnosed FCS** — a rare (~ 1 in 1 million) genetic condition ca
 
 This profile is **the strictest** on the site. It deserves its own dedicated UI because:
 
-1. The fat ceiling is far below any other profile (< 20 g/day).
-2. Standard TG-lowering medications (fibrate, statin, niacin, fish oil) **don't work** for FCS.
-3. MCT oil is *welcomed* (it bypasses the chylomicron pathway) — the opposite of the HTG profile.
-4. The math for **long-chain fat (LCT)** is what matters, not total fat alone.
-5. New therapies (e.g., olezarsen — APOC3 ASO) are emerging but diet remains the foundation.
+1. The fat ceiling is far below any other profile (≤ 15–20 g of fat per day, < 10–15 % of total daily energy intake — Williams et al. 2018, the NLA-published dietary guideline). `[ext:williams-2018]`
+2. Standard TG-lowering medications (fibrate, prescription omega-3, niacin) **typically do not work** in FCS. `[ext:goldberg-chait-2020]` (Orlistat has helped in case reports.)
+3. MCT oil is *welcomed* (it bypasses chylomicron formation) — the opposite of the HTG profile.
+4. New therapies are emerging (APOC3 antisense oligonucleotides — volanesorsen, with olezarsen in trials) but **diet remains the foundation**.
+5. This is the **only profile in v1 with a calculator** — a focused food-fat lookup. See "FCS food-fat lookup scope" below and the section in CLAUDE.md.
 
-The tone here is critical. Drawn directly from `ref:fcs-brochure`: **Preparation, Practice, Positivity** — and a focus on what people **can** eat, not just what's forbidden.
+The tone is critical. Drawn directly from `ref:fcs-brochure`: **Preparation, Practice, Positivity** — and a focus on what people **can** eat, not just what's forbidden.
 
 ### Routing into this profile
 
@@ -54,54 +54,39 @@ These are non-negotiable. Show them as a sticky reference card on every page in 
 
 | Rule | Target | Why |
 |---|---|---|
-| **Total long-chain fat (LCT)** | **< 20 g per day** | LCT becomes chylomicrons; chylomicrons can't be cleared in FCS. |
+| **Total fat** | **≤ 15–20 g per day** (< 10–15 % of total daily energy intake) | Animal *and* vegetable fat both restricted. From Williams et al. 2018, the published NLA dietary guideline. `[ext:williams-2018]` |
 | **Alcohol** | **None — ever.** | Alcohol drives hepatic VLDL/TG and can precipitate pancreatitis. |
 | **Added sugar** | **None or as close as possible.** | Drives hepatic VLDL production. |
-| **Saturated fat** | Avoid (essentially zero). | Same chylomicron pathway. |
+| **Saturated fat** | Avoid (essentially zero — counted within total fat). | |
 | **Trans fat** | Avoid. | |
-| **MCT oil (C8/C10)** | Allowed and encouraged in measured amounts (typically up to 1–3 tsp/day with clinician guidance). | MCT bypasses chylomicrons; absorbed via portal vein. |
+| **Complex carbohydrates over refined** | Choose whole grains, legumes, vegetables; limit white bread, pasta, pastries, sugary cereals. | Williams 2018 guideline. |
+| **Essential fatty acids** | Linoleic acid (omega-6) and α-linolenic acid (omega-3) must be met — usually a small dietitian-prescribed amount of plant oil. | Cannot be skipped; otherwise EFA deficiency develops. `[ext:williams-2018]` |
+| **MCT oil** | Allowed and encouraged. **Amount is set by your dietitian.** | MCT bypasses chylomicrons; absorbed via portal vein. |
+| **Fat-soluble vitamins (A, D, E, K), minerals** | Supplement as needed. | Very-low-fat eating impairs absorption. `[ext:williams-2018]` |
+| **Calorie balance** | Adjust to maintain weight (or healthy growth in pediatric patients). | |
 | **Sugary drinks** | None. | |
-| **Restaurant food** | Almost always too risky without prep — the FCS Restaurant Guide section below covers strategies. | Hidden fat in sauces, oils, dairy. |
+| **Restaurant food** | Almost always too risky without prep — see the Restaurant survival guide below. | Hidden fat in sauces, oils, dairy. |
 
-`[verify]` MCT dosing range against current FCS Foundation guidance and `ref:fcs-dietary-guidance`.
-
-`[ref:fcs-dietary-guidance]`, `[ref:fcs-brochure]`, `[ext:fcs-foundation]`.
+`[ref:fcs-dietary-guidance]`, `[ref:fcs-brochure]`, `[ext:fcs-foundation]`, `[ext:williams-2018]`, `[ext:goldberg-chait-2020]`.
 
 ---
 
-## The LCT calculation
+## FCS food-fat lookup scope (the v1 calculator)
 
-This is what the site's calculator computes for every meal:
+This is the **only calculator on the site in v1**. Scope is deliberately narrow.
 
-```
-Long-Chain Fat (g) = Total Fat (g) − MCT C8 (g) − MCT C10 (g)
-```
+**What it does:**
+- A user types a food name → the lookup finds it in USDA FoodData Central → it shows **total grams of fat per portion** (with portion options like "1 fillet (4 oz)" plus a grams field).
+- The user can optionally add foods to a **today's tally**, which sums total fat for the day and compares against the 15–20 g ceiling.
+- MCT oil is logged as a separate entry that contributes calories but is **not** counted against the daily fat ceiling — this matches how FCS dietitians actually counsel patients.
 
-### Worked example
+**What it does not do:**
+- No long-term history, no graphs, no streaks, no weekly trends.
+- No chain-length math (no C8 / C10 / C12 distinction in v1 — total fat is what Williams 2018's published guideline targets).
+- No saved profiles or accounts. The day's tally lives in `localStorage` and resets at the user's local midnight.
+- No claim that the user is "safe" if under the ceiling — the disclaimer "this is an estimate; confirm your fat budget with your dietitian" is paired with every result.
 
-A user enters:
-- 4 oz baked cod → 1 g total fat, 0 g MCT
-- ½ cup brown rice → 1 g total fat, 0 g MCT
-- 2 cups steamed broccoli → 1 g total fat, 0 g MCT
-- 1 tsp MCT oil (C8/C10) → 4.5 g total fat, 4.5 g MCT
-- 1 medium apple → 0 g total fat
-
-| Item | Total fat | MCT | LCT |
-|---|---|---|---|
-| Cod | 1 g | 0 | 1 g |
-| Brown rice | 1 g | 0 | 1 g |
-| Broccoli | 1 g | 0 | 1 g |
-| MCT oil 1 tsp | 4.5 g | 4.5 g | 0 g |
-| Apple | 0 g | 0 | 0 g |
-| **Day total** | **7.5 g** | **4.5 g** | **3 g** |
-
-Far under the 20 g LCT ceiling. The MCT contributes calories without LCT.
-
-### Implementation note
-
-USDA FoodData Central usually reports "Fatty acids, total saturated/monounsaturated/polyunsaturated" plus individual fatty acids by chain length (e.g., 8:0, 10:0, 12:0). For the LCT calc, treat C8 (octanoic) and C10 (decanoic) as MCT; C12 (lauric) and longer are LCT. See `lib/clinical/fcs.ts` for the rule.
-
-`[verify]` Whether C12 should be counted as MCT or LCT for FCS — clinically it's intermediate, but conservative practice in FCS is to count C12 as LCT.
+Implementation reference: `lib/clinical/fcs.ts` and `lib/fdc/`. See the **Calculators in v1** section of `CLAUDE.md` for the full design contract.
 
 ---
 
@@ -109,17 +94,17 @@ USDA FoodData Central usually reports "Fatty acids, total saturated/monounsatura
 
 | Nutrient | Adult / Adolescent | Pediatric (under guidance of pediatric lipidologist + dietitian) |
 |---|---|---|
-| Total fat | ≤ 20 g/day total — this includes LCT | Often ≤ 15 g/day |
-| Long-chain fat (LCT) | **< 20 g/day** (often the dietitian targets 10–15 g) | < 15 g/day |
-| MCT (C8/C10) oil | 1–3 tsp/day, individualized | Per dietitian |
-| Saturated fat | Effectively 0 | Effectively 0 |
+| Total fat | **≤ 15–20 g/day** (< 10–15 % of total daily energy) `[ext:williams-2018]` | Often ≤ 15 g/day |
+| MCT oil | Allowed; **amount set by dietitian** | Per dietitian |
+| Saturated fat | Effectively 0 (counted within total fat) | Effectively 0 |
 | Trans fat | 0 | 0 |
 | Added sugar | 0 ideally; otherwise as low as possible | 0 |
-| Protein | Adequate via lean sources (egg whites, white fish, skinless poultry, fat-free dairy, legumes) | Adequate; growth monitoring essential |
+| Protein | Adequate via lean sources (egg whites, white fish, skinless poultry, fat-free dairy without added sugars, legumes) | Adequate; growth monitoring essential |
+| Carbohydrates | Choose **complex** (whole grains, legumes, vegetables); limit simple and refined | Same |
 | Sodium | < 2300 mg/day (or as advised) | Per dietitian |
-| Energy | Adequate to maintain weight & growth — MCT and complex carbs fill the calorie gap left by fat restriction | Growth-curve-driven |
-| Fat-soluble vitamins (A, D, E, K) | Supplementation usually required — confirm with clinician | Supplementation usually required |
-| Essential fatty acids (linoleic, alpha-linolenic) | Small dietitian-prescribed amounts of plant oils may be needed to prevent deficiency | Same; monitored |
+| Energy | Adequate to maintain weight — MCT and complex carbs fill the calorie gap. Adjust calories for weight management. `[ext:williams-2018]` | Growth-curve-driven; never under-feed for fat restriction |
+| Fat-soluble vitamins (A, D, E, K), minerals | Supplementation usually required — confirm with clinician `[ext:williams-2018]` | Supplementation usually required |
+| Essential fatty acids (linoleic, α-linolenic) | Small dietitian-prescribed amounts of plant oil to meet EFA needs | Same; monitored |
 
 ---
 
@@ -127,16 +112,22 @@ USDA FoodData Central usually reports "Fatty acids, total saturated/monounsatura
 
 The traffic-light buckets here are **stricter than every other profile**. Many "healthy" foods (avocado, salmon, olive oil, nuts) are red here.
 
-### 🟢 Allowed — eat freely (within the 20 g fat/day ceiling)
+### 🟢 Allowed — eat freely (within the 15–20 g fat/day ceiling)
 
 - **Vegetables** — all non-starchy, fresh, frozen, or steamed: lettuce, spinach, kale, broccoli, cauliflower, peppers, carrots, cucumber, zucchini, tomato, mushrooms, green beans, asparagus, Brussels sprouts.
-- **Fruit (fresh, whole)** — apples, pears, berries, citrus, melon, peaches, plums, banana, grapes (whole-fruit only — no juice).
-- **Whole grains** — oatmeal (plain), brown rice, quinoa, whole-wheat bread (check fat content), whole-wheat pasta (check fat content), barley, bulgur, air-popped popcorn (no oil/butter).
+- **Whole grains** — oatmeal (plain), brown rice, quinoa, whole-wheat bread (check fat content), whole-wheat pasta (check fat content), barley, bulgur, air-popped popcorn (no oil/butter). **Choose complex over refined** per Williams 2018.
 - **Starchy vegetables** — potato (no butter/oil), sweet potato, corn, peas.
-- **Lean proteins (very low fat)** — egg whites, fat-free Greek yogurt, fat-free cottage cheese, fat-free milk, white fish (cod, tilapia, sole, haddock — baked or steamed), shellfish in modest portions (shrimp), skinless chicken or turkey breast (baked, grilled, no skin), beans and lentils.
-- **MCT oil (C8/C10)** — measured per care plan.
+- **Legumes** — beans, lentils, chickpeas, split peas.
+- **Lean proteins (very low fat)** — egg whites, **fat-free milk products without added sugars** (Williams 2018 wording — fat-free Greek yogurt, fat-free cottage cheese, fat-free milk), white fish (cod, tilapia, sole, haddock — baked or steamed), shellfish in modest portions (shrimp), skinless chicken or turkey breast (baked, grilled, no skin).
+- **MCT oil** — amount set by the patient's dietitian.
 - **Beverages** — water, sparkling water, unsweetened tea, black coffee.
 - **Seasonings** — herbs, spices, vinegar, lemon, lime, mustard, salsa (check label), low-sodium soy sauce.
+
+### 🟡 Be mindful — fruits in limited amounts
+
+Williams 2018 explicitly lists *"fruits in limited amounts"* (1–2 servings/day, whole fruit only — no juice). High-natural-sugar fruits (grapes, mango, dried fruit) are smaller portions or rare.
+
+- **Whole, fresh fruit** — apples, pears, berries, citrus, melon, peaches, plums, banana — **1–2 servings/day**, no juice.
 
 ### 🔴 Not allowed (or extremely strict)
 
@@ -161,37 +152,37 @@ The traffic-light buckets here are **stricter than every other profile**. Many "
 
 ---
 
-## Sample day (~ 1800 kcal, ~ 12 g LCT)
+## One day on the FCS plate
 
-`[verify]` against `ref:fcs-brochure` sample meal plan and patient growth/calorie needs.
+A sample day. **Calorie and gram targets are individualized by your dietitian** — this is just an illustration of what FCS-friendly meals look like.
 
 **Breakfast**
-- ¾ cup oatmeal cooked with water
-- ½ cup berries
-- 1 tbsp fat-free Greek yogurt swirl
+- Plain oatmeal cooked with water
+- A small serving of berries
+- A swirl of fat-free Greek yogurt
 - Black coffee or tea
 
 **Snack**
-- 1 medium apple
-- ½ cup fat-free cottage cheese
+- Fresh whole fruit (1 piece)
+- Fat-free cottage cheese
 
 **Lunch**
-- Bowl: ½ cup brown rice, 4 oz baked cod, 1 cup steamed broccoli, ½ cup black beans, salsa, lime
-- 1 tsp MCT oil drizzled on the bowl
+- Bowl: brown rice, baked cod, steamed broccoli, black beans, salsa, lime
+- MCT oil drizzled on the bowl (amount per your dietitian)
 - Sparkling water with lemon
 
 **Snack**
-- 2 cups air-popped popcorn (no butter/oil)
-- 1 small banana
+- Air-popped popcorn (no butter/oil)
+- A small banana
 
 **Dinner**
-- 4 oz grilled skinless chicken breast
-- 1 medium baked sweet potato (no butter)
-- Large mixed-greens salad with vinegar + lemon
+- Grilled skinless chicken breast
+- Baked sweet potato (no butter)
+- Mixed-greens salad with vinegar and lemon
 - Steamed asparagus
 
 **Dessert**
-- ½ cup fat-free yogurt with sliced strawberries
+- Fat-free yogurt with sliced strawberries
 
 ---
 
@@ -235,15 +226,15 @@ profile_intro:
 
 profile_summary_one_line:
   key: fcs.summary
-  text: Less than 20 g long-chain fat per day, no alcohol, no added sugar, MCT oil for healthy calories.
+  text: 15–20 g of fat a day, no alcohol, no added sugar, MCT oil for healthy calories.
 
-lct_over_alert:
-  key: fcs.alert.lct
-  trigger: daily LCT >= 18 g (yellow) or >= 20 g (red)
+fat_over_alert:
+  key: fcs.alert.fat
+  trigger: daily total fat >= 15 g (yellow) or >= 20 g (red)  -- used by the FCS food-fat lookup only
   text: >
-    You're approaching today's long-chain fat limit. The most common silent
-    sources are dressing, sauce, cheese, and "healthy" oils — try a swap or
-    move the rest of the day toward vegetables and white fish.
+    You're approaching today's fat budget. The most common silent sources
+    are dressing, sauce, cheese, and "healthy" oils — try a swap or move the
+    rest of the day toward vegetables and white fish.
 
 alcohol_alert:
   key: fcs.alert.alcohol
@@ -321,7 +312,7 @@ three_ps_card:
 ## Do-not-say list
 
 - ❌ "Just avoid fat" → ✅ "Long-chain fat under 20 g a day, with MCT for healthy calories"
-- ❌ "Try omega-3 fish oil" → ✅ "Standard fish oil isn't useful in FCS — talk to your care team about whether MCT oil makes sense"
+- ❌ "Try omega-3 fish oil" → ✅ "Standard fibrates, omega-3, and niacin generally don't work in FCS — talk to your care team about MCT oil and emerging therapies."
 - ❌ "Salmon is a good choice" → ✅ "Salmon is too high in fat for FCS — white fish like cod or tilapia is the FCS option"
 - ❌ "Avocado is a healthy fat" → ✅ "Healthy fats elsewhere, but too high in fat for FCS"
 - ❌ "Just one sip" / "a little won't hurt" → ✅ "FCS doesn't have a safe alcohol amount"
@@ -331,4 +322,4 @@ three_ps_card:
 
 ## Citations footer (shown on the profile page)
 
-> This guidance is based on the FCS Foundation patient education materials, the FCS Action nutritional brochure, dietary guidance for FCS (Familial Chylomicronemia Syndrome), and clinical consensus on long-chain-fat restriction with MCT supplementation. It is general education, not medical advice. FCS care belongs with a lipidologist and a registered dietitian who knows the condition — please don't make changes to your medication or fat-gram target without them.
+> This guidance is based primarily on Williams L et al., *Familial chylomicronemia syndrome: Bringing to life dietary recommendations throughout the life span* (*Journal of Clinical Lipidology*, 2018) — the National Lipid Association's published dietary guideline for FCS — and Goldberg RB & Chait A, *A Comprehensive Update on the Chylomicronemia Syndrome* (*Frontiers in Endocrinology*, 2020). It also draws on the FCS Foundation's patient education materials and the FCS Action nutritional brochure. It is general education, not medical advice. FCS care belongs with a lipidologist and a registered dietitian who knows the condition — please don't make changes to your medication or fat-gram target without them.

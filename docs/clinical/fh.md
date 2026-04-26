@@ -21,12 +21,9 @@ Both groups need **stronger LDL-lowering levers** than general heart-healthy eat
 
 | Population | LDL-C | Total cholesterol | Notes |
 |---|---|---|---|
-| Adult (untreated) | ≥ 190 mg/dL | ≥ 290 mg/dL | Probable/possible FH if family history fits | `[ref:nhlbi-2011]`, `[ext:nla-fh-2011]` |
-| Adult (with risk factors) | ≥ 160 mg/dL | — | Add this profile alongside general |
-| Pediatric (2–19) | ≥ 160 mg/dL | ≥ 240 mg/dL | Probable FH; if ≥ 190 without family history, still consider FH | `[ref:nhlbi-2011]`, `[ref:aap-2020]` |
-| Pediatric (with positive family history of early CAD) | ≥ 130 mg/dL | — | Treat as elevated; this profile applies |
-
-`[verify]` Pediatric thresholds against current AAP / NHLBI numbers — these align with NHLBI 2011 but check against any 2023+ updates.
+| Adult (untreated) | ≥ 190 mg/dL | ≥ 290 mg/dL | Probable/possible FH, especially with family history of early heart disease. `[ref:nhlbi-2011]`, `[ext:nla-fh-2011]` |
+| Adult (with risk factors) | ≥ 160 mg/dL | — | Add this profile alongside general. |
+| Pediatric (2–19) | **≥ 160 mg/dL with family history of early heart disease** | — | Probable FH. `[ref:nhlbi-2011]`, `[ref:aap-2020]` |
 
 ### A note about medication
 
@@ -76,7 +73,7 @@ This is sometimes called the **"portfolio diet"** (Jenkins et al.). The site pre
 | Saturated fat | **< 7 %** of total calories | |
 | Total fat | 25–30 % | |
 | Dietary cholesterol | **< 200 mg/day** | |
-| Plant sterols/stanols | 2 g/day for children > 2 years (with clinician sign-off) | `[verify]` pediatric sterol use. |
+| Plant sterols/stanols | Not routinely recommended in pediatric FH on this site — handled case-by-case by the family's dietitian and lipid specialist. | (No pediatric dosing target on this site.) |
 | Viscous fiber | Age + 5 g/day, with emphasis on oats, beans, psyllium | |
 | Sugary drinks | None | |
 
@@ -122,6 +119,8 @@ The general-profile "Limit" list, **plus** especially strict on:
 
 ## Microcopy library
 
+There is **no day-tracker on this profile in v1**. These are static education / tooltip strings, not numerically triggered alerts.
+
 ```yaml
 profile_intro:
   key: fh.intro
@@ -133,7 +132,7 @@ profile_intro:
 
 profile_summary_one_line:
   key: fh.summary
-  text: Five levers — less saturated fat, less cholesterol, more fiber, plant sterols, and tree nuts.
+  text: Less saturated fat. Less dietary cholesterol. More fiber. Plant sterols. A handful of nuts.
 
 medication_reminder:
   key: fh.med.reminder
@@ -141,33 +140,33 @@ medication_reminder:
     For most people with FH, diet works alongside medication, not instead of
     it. If your doctor has prescribed a statin, keep taking it.
 
-sat_fat_alert:
-  key: fh.alert.satfat
-  trigger: daily saturated fat > 7 % of calories
+sat_fat_education:
+  key: fh.edu.satfat
   text: >
-    Saturated fat is the single biggest dietary lever for lowering LDL. The
-    most likely sources today are butter, cheese, fatty meat, or coconut oil.
+    The single biggest dietary lever for lowering LDL is saturated fat — the
+    fat in butter, cheese, fatty meat, palm oil, and coconut oil. Swapping
+    olive oil for butter and fish for steak is most of the work.
 
-cholesterol_alert:
-  key: fh.alert.cholesterol
-  trigger: daily dietary cholesterol > 200 mg
+cholesterol_education:
+  key: fh.edu.cholesterol
   text: >
-    You're over the dietary cholesterol target. Egg yolks, shellfish, and
-    organ meats are the usual reasons.
+    Dietary cholesterol from food is a smaller lever than saturated fat, but
+    still real for FH. Egg yolks twice a week is plenty, and organ meats and
+    shellfish are once-in-a-while.
 
-sterols_nudge:
-  key: fh.nudge.sterols
-  trigger: daily plant sterols < 2 g
+sterols_education:
+  key: fh.edu.sterols
   text: >
-    Plant sterols can drop LDL another 6–10 %. Adding a fortified spread or
-    a supplement is the easiest way to hit the 2-gram target.
+    Plant sterols and stanols can drop LDL further. They're in fortified
+    spreads, certain orange juices, and supplements. Adults usually need a
+    fortified product or a supplement to get a useful daily amount — talk to
+    your dietitian about whether they fit.
 
-fiber_nudge:
-  key: fh.nudge.fiber
-  trigger: daily viscous fiber < 5 g
+fiber_education:
+  key: fh.edu.fiber
   text: >
-    Viscous fiber binds cholesterol in your gut. A bowl of oatmeal, a serving
-    of beans, or a teaspoon of psyllium will get you there.
+    A bowl of oatmeal, a serving of beans, or a teaspoon of psyllium gives
+    you the kind of fiber that binds cholesterol in your gut.
 
 ldl_progress_card:
   key: fh.progress.ldl
