@@ -1,45 +1,48 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const nav = [
-  { to: "/heart-healthy", label: "Heart-Healthy" },
-  { to: "/cholesterol", label: "Cholesterol" },
-  { to: "/triglyceride", label: "Triglycerides" },
-  { to: "/fcs", label: "FCS" },
-  { to: "/about", label: "About" },
+  { to: "/", label: "home" },
+  { to: "/cv", label: "cv" },
+  { to: "/consulting", label: "consulting" },
+  { to: "/clinical-studies", label: "studies" },
+  { to: "/lipid-nutrition", label: "nutrition hub" },
 ];
 
 export default function Header() {
+  const { pathname } = useLocation();
+  
+  // Safe check: If we are not on any of the inner pages, we must be on the home page.
+  // This avoids issues with base URLs, trailing slashes, or hash routing.
+  const isHome = !pathname.includes("/cv") && 
+                 !pathname.includes("/consulting") && 
+                 !pathname.includes("/clinical-studies") && 
+                 !pathname.includes("/lipid-nutrition");
+  const textColor = isHome ? "text-navlight" : "text-charcoal";
+
   return (
-    <header className="border-b border-ink/10 bg-parchment-50">
-      <div className="container-wide flex flex-col gap-4 py-6 md:flex-row md:items-center md:justify-between md:py-8">
-        <Link
-          to="/"
-          className="font-serif text-2xl font-medium tracking-tight text-ink no-underline hover:text-terracotta-deep"
-        >
-          Lipid Nutrition Hub
-        </Link>
-        <nav aria-label="Primary">
-          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm md:text-base">
-            {nav.map((item) => (
-              <li key={item.to}>
-                <NavLink
-                  to={item.to}
-                  className={({ isActive }) =>
-                    [
-                      "no-underline transition-colors",
-                      isActive
-                        ? "text-terracotta-deep"
-                        : "text-ink-soft hover:text-terracotta-deep",
-                    ].join(" ")
-                  }
-                >
-                  {item.label}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
+    <header className={`absolute top-0 left-0 w-full z-50 p-8 md:p-12 ${textColor}`}>
+      <nav aria-label="Primary">
+        <ul className="flex flex-wrap items-center gap-x-8 gap-y-4">
+          {nav.map((item) => (
+            <li key={item.to}>
+              <NavLink
+                to={item.to}
+                className={({ isActive }) =>
+                  [
+                    "font-sans text-xl md:text-2xl lg:text-3xl tracking-widest uppercase transition-all duration-300 no-underline",
+                    isHome ? "text-navlight" : "text-charcoal",
+                    isActive
+                      ? "opacity-100 font-bold"
+                      : "opacity-90 hover:opacity-100 hover:font-medium",
+                  ].join(" ")
+                }
+              >
+                {item.label}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </header>
   );
 }

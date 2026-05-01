@@ -4,45 +4,46 @@
 
 @layer base {
   html {
-    @apply bg-parchment text-ink;
+    @apply bg-background text-charcoal;
     font-feature-settings: "kern", "liga", "calt";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply font-serif text-base leading-relaxed;
+    @apply font-heading font-normal text-xl leading-relaxed;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    @apply font-serif font-medium tracking-tight;
+    @apply font-heading tracking-tight;
+    font-weight: 500;
   }
 
   h1 {
-    @apply text-4xl md:text-5xl;
+    @apply text-5xl md:text-6xl lg:text-7xl leading-tight;
   }
 
   h2 {
-    @apply text-2xl md:text-3xl;
+    @apply text-4xl md:text-6xl lg:text-7xl leading-tight;
   }
 
   h3 {
-    @apply text-xl md:text-2xl;
+    @apply text-2xl md:text-4xl;
   }
 
   a {
-    @apply text-terracotta-deep underline-offset-2 hover:underline;
+    @apply text-charcoal underline-offset-4 hover:opacity-70 transition-opacity;
   }
 
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-terracotta;
+    @apply outline-2 outline-offset-2 outline-charcoal/50;
   }
 
   ::selection {
-    @apply bg-terracotta text-parchment;
+    @apply bg-primary/20 text-charcoal;
   }
 }
 

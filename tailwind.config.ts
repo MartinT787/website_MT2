@@ -5,6 +5,13 @@ export default {
   theme: {
     extend: {
       colors: {
+        // High-end portfolio colors
+        background: "#EBEAE4",
+        primary: "#1F2D24",
+        accent: "#189852",
+        charcoal: "#111111",
+        navlight: "#DFDDD9",
+        // Legacy Nutrition Hub colors
         parchment: {
           DEFAULT: "#E8E1D5",
           50: "#F2EDE3",
@@ -41,6 +48,9 @@ export default {
         serif: ["Lora", "Georgia", "serif"],
         sans: ["Inter", "system-ui", "sans-serif"],
         mono: ["JetBrains Mono", "ui-monospace", "monospace"],
+        // Portfolio fonts
+        heading: ["Playfair Display", "serif"],
+        drama: ["Playfair Display", "serif"],
       },
       maxWidth: {
         prose: "65ch",
