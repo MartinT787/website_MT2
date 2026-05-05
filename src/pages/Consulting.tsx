@@ -33,11 +33,16 @@ export default function Consulting() {
         <div className="md:col-span-8 consult-item">
           <div className="prose prose-xl prose-p:font-heading prose-p:text-charcoal prose-p:leading-snug max-w-none">
             <p>
-              With extensive experience as a physician-scientist specializing in rare lipid disorders and pediatric endocrinology, I provide specialized consulting services for metabolic clinical trials, research initiatives, and strategic clinical development.
+              As a UCSF physician-scientist specializing in rare lipid disorders, I partner with pharmaceutical and biotech companies to guide the development of novel therapeutics.
             </p>
-            <p>
-              My background integrates rigorous clinical practice at UCSF with a deep understanding of immunological mechanisms and advanced metabolic pathways. I offer unique insights for pharmaceutical and biotech partners developing novel therapeutics for conditions such as Familial Chylomicronemia Syndrome (FCS) and Homozygous/Heterozygous Familial Hypercholesterolemia (HoFH/HeFH).
+            <p className="mb-4">
+              My consulting expertise includes:
             </p>
+            <ul className="list-none space-y-3">
+              <li><strong>Clinical Trial Strategy:</strong> Guiding metabolic clinical trials and research initiatives.</li>
+              <li><strong>Translational Insights:</strong> Bridging the gap between advanced metabolic pathways, immunology, and clinical practice.</li>
+              <li><strong>Rare Disease Focus:</strong> Specialized knowledge in complex conditions like FCS and HoFH/HeFH.</li>
+            </ul>
           </div>
         </div>
 
