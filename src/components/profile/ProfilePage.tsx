@@ -14,11 +14,11 @@ export default function ProfilePage({ profile, children }: ProfilePageProps) {
   return (
     <article>
       <section className="bg-parchment-50">
-        <div className="container-prose py-12 md:py-16">
-          <p className="font-serif text-sm uppercase tracking-widest text-terracotta-deep">
+        <div className="container-prose pt-24 pb-12 md:pt-32 md:pb-16">
+          <p className="font-serif text-xl uppercase tracking-widest text-terracotta-deep">
             Profile
           </p>
-          <h1 className="mt-3">{profile.label}</h1>
+          <h1 className="mt-4">{profile.label}</h1>
           <p className="mt-2 text-sm uppercase tracking-wider text-ink-soft">
             {profile.clinicalName}
           </p>
