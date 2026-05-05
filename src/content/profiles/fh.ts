@@ -52,10 +52,6 @@ export const fh: ProfileContent = {
       body: "Saturated fat. The fat in butter, cheese, fatty meat, palm oil, and coconut oil. Swapping olive oil for butter and fish for steak is most of the work.",
     },
     {
-      title: "Plant sterols, in plain language",
-      body: "Plant sterols are natural compounds that block some cholesterol absorption. They're added to certain spreads, juices, and supplements. Talk to your dietitian about whether they fit your plan.",
-    },
-    {
       title: "Statins and food",
       body: "Diet typically lowers LDL by 5 to 15 percent on top of your medication. If your doctor has prescribed a statin, keep taking it.",
     },
