@@ -27,12 +27,12 @@ function createBeam(width: number, height: number): Beam {
     const angle = -35 + Math.random() * 10;
     return {
         x: Math.random() * width * 1.5 - width * 0.25,
-        y: height + (Math.random() * height * 0.5), // Start at or below the bottom of the screen
+        y: height + Math.random() * height * 0.2, // Start just below the screen so they appear quickly from the bottom
         width: 80 + Math.random() * 120,
         length: height * 2.5,
         angle: angle,
-        speed: 1.2 + Math.random() * 2.0, // Increased speed slightly
-        opacity: 0.15 + Math.random() * 0.25, // Significantly increased opacity
+        speed: 4.0 + Math.random() * 5.0, // Greatly increased speed so they appear faster and finish faster
+        opacity: 0.15 + Math.random() * 0.25,
         hue: 140 + Math.random() * 30,
         pulse: Math.random() * Math.PI * 2,
         pulseSpeed: 0.02 + Math.random() * 0.03,
