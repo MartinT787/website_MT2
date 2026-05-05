@@ -27,9 +27,9 @@ export default function LipidHub() {
         <h2 className="font-serif">Pick the profile that fits you</h2>
         <p className="mt-3 max-w-prose text-ink-soft">
           Not sure which one? Start with Heart-Healthy Eating — it's the
-          foundation everyone benefits from, and the other three build on it.
+          foundation everyone benefits from, and the other two build on it.
         </p>
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {profileList.map((p) => (
             <Link
               key={p.id}
