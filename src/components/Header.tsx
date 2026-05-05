@@ -22,18 +22,18 @@ export default function Header() {
   return (
     <header className={`absolute top-0 left-0 w-full z-50 p-8 md:p-12 ${textColor}`}>
       <nav aria-label="Primary">
-        <ul className="flex flex-wrap items-center gap-x-8 gap-y-4">
+        <ul className="flex flex-wrap items-center gap-x-5 md:gap-x-6 gap-y-4">
           {nav.map((item) => (
             <li key={item.to}>
               <NavLink
                 to={item.to}
                 className={({ isActive }) =>
                   [
-                    "font-sans text-xl md:text-2xl lg:text-3xl tracking-widest uppercase transition-all duration-300 no-underline",
+                    "font-sans text-base md:text-lg lg:text-xl tracking-widest uppercase transition-all duration-300 no-underline",
                     isHome ? "text-navlight" : "text-charcoal",
                     isActive
                       ? "opacity-100 font-bold"
-                      : "opacity-90 hover:opacity-100 hover:font-medium",
+                      : "opacity-80 hover:opacity-100 hover:font-medium",
                   ].join(" ")
                 }
               >
