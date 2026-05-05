@@ -13,10 +13,7 @@ export default function Header() {
   
   // Safe check: If we are not on any of the inner pages, we must be on the home page.
   // This avoids issues with base URLs, trailing slashes, or hash routing.
-  const isHome = !pathname.includes("/cv") && 
-                 !pathname.includes("/consulting") && 
-                 !pathname.includes("/clinical-studies") && 
-                 !pathname.includes("/lipid-nutrition");
+  const isHome = pathname === "/" || pathname === "";
   const textColor = isHome ? "text-navlight" : "text-charcoal";
 
   return (

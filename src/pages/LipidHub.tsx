@@ -3,7 +3,7 @@ import { profileList } from "@/content/profiles";
 
 export default function LipidHub() {
   return (
-    <div className="pt-40 pb-32 container mx-auto px-8 md:px-16 max-w-5xl min-h-screen">
+    <div className="pt-56 md:pt-40 pb-32 container mx-auto px-8 md:px-16 max-w-5xl min-h-screen">
       <h1 className="font-heading text-primary mb-24">
         nutrition hub
       </h1>

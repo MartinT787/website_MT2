@@ -15,7 +15,7 @@ export default function ProfilePage({ profile, children }: ProfilePageProps) {
   return (
     <article>
       <section className="bg-parchment-50">
-        <div className="container-prose pt-24 pb-12 md:pt-32 md:pb-16">
+        <div className="container-prose pt-56 pb-12 md:pt-40 md:pb-16">
           <Link 
             to="/lipid-nutrition"
             className="inline-block font-serif text-xl uppercase tracking-widest text-terracotta-deep hover:opacity-70 transition-opacity no-underline"
