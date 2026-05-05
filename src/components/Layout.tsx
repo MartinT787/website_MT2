@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
-import Footer from "./Footer";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -17,7 +16,6 @@ export default function Layout() {
       <main id="main" className="flex-1 w-full">
         <Outlet />
       </main>
-      <Footer />
     </div>
   );
 }
