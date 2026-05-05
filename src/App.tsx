@@ -8,7 +8,6 @@ import LipidHub from "./pages/LipidHub";
 import HeartHealthy from "./pages/profiles/HeartHealthy";
 import Cholesterol from "./pages/profiles/Cholesterol";
 import Triglyceride from "./pages/profiles/Triglyceride";
-import FCS from "./pages/profiles/FCS";
 import NotFound from "./pages/NotFound";
 
 export default function App() {
@@ -23,7 +22,6 @@ export default function App() {
         <Route path="/heart-healthy" element={<HeartHealthy />} />
         <Route path="/cholesterol" element={<Cholesterol />} />
         <Route path="/triglyceride" element={<Triglyceride />} />
-        <Route path="/fcs" element={<FCS />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
