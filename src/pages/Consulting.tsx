@@ -57,12 +57,22 @@ export default function Consulting() {
           <p className="font-sans font-light text-charcoal text-[1.2rem] mb-8 max-w-xl leading-relaxed">
             For inquiries regarding consulting opportunities, advisory board participation, or trial design consultation, please reach out via email.
           </p>
-          <a 
-            href="mailto:martin@martinthelin.com" 
-            className="inline-block font-heading text-2xl md:text-4xl text-accent hover:opacity-60 transition-opacity no-underline"
-          >
-            martin@martinthelin.com
-          </a>
+          <div className="flex flex-col gap-6">
+            <a 
+              href="mailto:martin@martinthelin.com" 
+              className="inline-block font-heading text-2xl md:text-4xl text-accent hover:opacity-60 transition-opacity no-underline w-fit"
+            >
+              martin@martinthelin.com
+            </a>
+            <a 
+              href="https://www.linkedin.com/in/martin-thelin-md-phd-a6388454" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block font-heading text-2xl md:text-4xl text-accent hover:opacity-60 transition-opacity no-underline w-fit"
+            >
+              LinkedIn Profile
+            </a>
+          </div>
         </div>
       </div>
     </div>
