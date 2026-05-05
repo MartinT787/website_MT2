@@ -33,7 +33,7 @@ export default function ClinicalStudies() {
         </div>
         <div className="md:col-span-8 study-item">
           <div className="prose prose-xl prose-p:font-heading prose-p:text-charcoal prose-p:leading-snug max-w-none">
-            <p>
+            <p className="mb-6">
               Site Principal Investigator for two clinical trials evaluating the safety and efficacy of PCSK9-targeted siRNA therapeutics in pediatric populations.
             </p>
             <p>
@@ -60,7 +60,7 @@ export default function ClinicalStudies() {
         </div>
         <div className="md:col-span-8 study-item">
           <div className="prose prose-xl prose-p:font-heading prose-p:text-charcoal prose-p:leading-snug max-w-none">
-            <p>
+            <p className="mb-6">
               Site Principal Investigator for an upcoming clinical trial evaluating the safety and efficacy of Olezarsen, an APOC3-targeted antisense oligonucleotide.
             </p>
             <p>
