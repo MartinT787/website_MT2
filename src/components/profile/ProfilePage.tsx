@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import type { ReactNode } from "react";
 import type { ProfileContent } from "@/content/profiles/types";
 import FoodLists from "./FoodLists";
@@ -15,9 +16,12 @@ export default function ProfilePage({ profile, children }: ProfilePageProps) {
     <article>
       <section className="bg-parchment-50">
         <div className="container-prose pt-24 pb-12 md:pt-32 md:pb-16">
-          <p className="font-serif text-xl uppercase tracking-widest text-terracotta-deep">
-            Profile
-          </p>
+          <Link 
+            to="/lipid-nutrition"
+            className="inline-block font-serif text-xl uppercase tracking-widest text-terracotta-deep hover:opacity-70 transition-opacity no-underline"
+          >
+            ← Back to Profiles
+          </Link>
           <h1 className="mt-4">{profile.label}</h1>
           <p className="mt-2 text-sm uppercase tracking-wider text-ink-soft">
             {profile.clinicalName}
