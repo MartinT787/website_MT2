@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-primary">
       {/* Left Pane */}
-      <div className="relative w-full md:w-1/2 flex items-center justify-center p-8 md:p-16 overflow-hidden">
+      <div className="relative w-full md:flex-1 flex items-center justify-center p-8 md:p-16 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <BeamsBackground intensity="medium" className="h-full w-full opacity-60" />
         </div>
@@ -45,11 +45,11 @@ export default function Home() {
       </div>
 
       {/* Right Pane */}
-      <div className="relative w-full md:w-1/2 min-h-[50vh] md:min-h-screen">
+      <div className="relative w-full md:w-1/2 min-h-[50vh] md:min-h-screen hide-on-mobile-landscape">
         <img 
           src="/martin-thelin.jpg"
           alt="Dr. Martin Thelin"
-          className="absolute inset-0 w-full h-full object-cover object-center grayscale contrast-125"
+          className="absolute inset-0 w-full h-full object-cover object-top grayscale contrast-125"
         />
         <div className="absolute inset-0 bg-primary/20 mix-blend-multiply pointer-events-none"></div>
       </div>
