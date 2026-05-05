@@ -1,4 +1,4 @@
-export type ProfileId = "general" | "fh" | "htg" | "fcs";
+export type ProfileId = "general" | "fh" | "htg";
 
 export interface FoodList {
   eat: string[];
