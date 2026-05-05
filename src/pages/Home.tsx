@@ -37,7 +37,7 @@ export default function Home() {
                 Martin Thelin, an MD/PhD physician-scientist, is a pediatric endocrinologist and lipidologist based in San Francisco. He serves as Director of the Pediatric Lipid Clinic at UCSF.
               </p>
               <p>
-                After completing his doctoral studies at Lund University and postdoctoral training at Harvard’s Joslin Diabetes Center, Martin now focuses his research on immune mechanisms within Type 1 diabetes and rare lipid disorders.
+                After completing his doctoral studies at Lund University and postdoctoral training at Harvard’s Joslin Diabetes Center, Martin now focuses his research on immune mechanisms within type 1 diabetes and rare lipid disorders.
               </p>
             </div>
           </div>
