@@ -63,16 +63,20 @@ export function BeamsBackground({
         if (!ctx) return;
 
         const updateCanvasSize = () => {
+            if (!canvas.parentElement) return;
+            const parent = canvas.parentElement;
+            const rect = parent.getBoundingClientRect();
+            
             const dpr = window.devicePixelRatio || 1;
-            canvas.width = window.innerWidth * dpr;
-            canvas.height = window.innerHeight * dpr;
-            canvas.style.width = `${window.innerWidth}px`;
-            canvas.style.height = `${window.innerHeight}px`;
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            canvas.style.width = `${rect.width}px`;
+            canvas.style.height = `${rect.height}px`;
             ctx.scale(dpr, dpr);
 
             const totalBeams = MINIMUM_BEAMS * 1.5;
             beamsRef.current = Array.from({ length: totalBeams }, () =>
-                createBeam(canvas.width, canvas.height)
+                createBeam(rect.width, rect.height)
             );
         };
 
@@ -154,7 +158,7 @@ export function BeamsBackground({
     return (
         <div
             className={cn(
-                "relative min-h-screen w-full overflow-hidden bg-primary",
+                "relative h-full w-full overflow-hidden bg-primary",
                 className
             )}
         >
